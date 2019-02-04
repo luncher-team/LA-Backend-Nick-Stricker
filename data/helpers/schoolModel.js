@@ -4,6 +4,7 @@ module.exports = {
     get,
     add,
     remove,
+    update,
 }
 
 function get(id) {
@@ -32,4 +33,11 @@ function remove(id) {
     return db('schools')
         .where('id', id)
         .del();
+}
+
+function update(id, changes) {
+    return db('schools')
+        .where('id', id)
+        .update(changes)
+        .then(count => (count > 0 ? this.get(id) : null));
 }
