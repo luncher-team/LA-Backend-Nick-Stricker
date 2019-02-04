@@ -12,6 +12,10 @@ server.use(cors());
 server.use(express.json());
 
 //routes
+server.get('/', (req, res) => {
+    res.send('Api Working');
+})
+
 server.use('/schools', schoolsRouter);
 
 module.exports = server;
