@@ -2,7 +2,8 @@ const db = require('../dbConfig.js');
 
 module.exports = {
     get,
-
+    add,
+    remove,
 }
 
 function get(id) {
@@ -15,4 +16,20 @@ function get(id) {
     }
 
     return query;
+}
+
+function add(school) {
+    school = { ...school, donated: 0 }
+    if (school.description === undefined) {
+        school = { ...school, description: "" }
+    }
+    return db('schools')
+        .insert(school)
+        .then(([id]) => ({ id }));
+}
+
+function remove(id) {
+    return db('schools')
+        .where('id', id)
+        .del();
 }
