@@ -20,7 +20,7 @@ function get(id) {
 }
 
 function add(school) {
-    school = { ...school, donated: 0 }
+    school = { ...school, donated: 0, achieved: false }
     if (school.description === undefined) {
         school = { ...school, description: "" }
     }
