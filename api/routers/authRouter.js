@@ -20,8 +20,16 @@ function register(req, res) {
     userInfo.password = hash;
 
     db.add(userInfo)
-        .then(ids => {
-            res.status(201).json(ids);
+        .then(([id]) => {
+            db.login(userInfo.username)
+                .then(user => {
+                    const token = ware.generateToken(user);
+                    res.status(201).json({
+                        username: user.username,
+                        token,
+                        id
+                    })
+                })
         })
         .catch(err => res.status(500).json(err));
 }
@@ -39,6 +47,7 @@ function login(req, res) {
                 res.status(200).json({
                     username: user.username,
                     token,
+                    id: user.id
                 });
             } else {
                 res.status(401).json({
