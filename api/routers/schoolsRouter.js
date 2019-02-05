@@ -13,7 +13,7 @@ router.route('/')
     ;
 
 router.route('/:id')
-    .get(get)
+    .get(getId)
     .delete(ware.authenticate, remove)
     .put(ware.authenticate, update)
     ;
@@ -22,12 +22,36 @@ router.route('/:id')
 
 //functions
 function get(req, res) {
-    const id = req.params.id;
-    db.get(id)
+    db.get()
         .then(result => {
             res.status(200).json(result);
         })
         .catch(err => res.status(500).json({ msg: 'name must be unique', err }));
+}
+function getId(req, res) {
+    const id = req.params.id;
+
+    db.get()
+        .then(schools => {
+            let found = false;
+            for (let i = 0; i < schools.length; i++) {
+                if (schools[i].id == id) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                db.get(id)
+                    .then(result => {
+                        res.status(200).json(result);
+                    })
+                    .catch(err => res.status(500).json({ msg: 'name must be unique', err }));
+            } else {
+                res.status(404).json({ msg: 'school with id not found' });
+            }
+        })
+
+
 }
 
 function add(req, res) {
