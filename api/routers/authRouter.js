@@ -37,7 +37,7 @@ function register(req, res) {
 function login(req, res) {
     const creds = req.body;
 
-    db.login(creds.username)
+    db.login(creds.username.toString())
         .then(user => {
             console.log(user)
             if (user && bcrypt.compareSync(creds.password, user.password)) {
