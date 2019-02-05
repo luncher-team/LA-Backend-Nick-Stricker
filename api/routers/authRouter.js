@@ -9,7 +9,7 @@ const ware = require('../middleware.js');
 router.post('/login', login);
 router.post('/register', register);
 router.get('/users', getUsers);
-router.get('/users/:id', ware.authenticate, getUsers);
+router.get('/users/:id', getUsers);
 
 
 function register(req, res) {
