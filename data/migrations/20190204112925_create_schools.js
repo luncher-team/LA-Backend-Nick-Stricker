@@ -8,6 +8,8 @@ exports.up = function (knex, Promise) {
         tbl.string('address').notNullable();
         tbl.integer('requestedFunds').notNullable();
         tbl.integer('donated');
+        tbl.boolean('achieved');
+        tbl.timestamps(true, true);
     });
 };
 

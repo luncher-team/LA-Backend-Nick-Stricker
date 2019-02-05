@@ -2,8 +2,11 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
+const bcrypt = require('bcryptjs'); // added
+const jwt = require('jsonwebtoken');
 
 const schoolsRouter = require('./routers/schoolsRouter.js');
+const authRouter = require('./routers/authRouter.js');
 
 const server = express();
 
@@ -17,5 +20,6 @@ server.get('/', (req, res) => {
 })
 
 server.use('/schools', schoolsRouter);
+server.use('/api', authRouter);
 
 module.exports = server;
