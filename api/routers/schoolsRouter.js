@@ -14,7 +14,7 @@ router.route('/')
 
 router.route('/:id')
     .get(get)
-    .delete(remove)
+    .delete(ware.authenticate, remove)
     .put(ware.authenticate, update)
     ;
 
