@@ -20,7 +20,8 @@ function get(id) {
 }
 
 function login(username) {
-    return db('users')
+    let query = db('users')
+    return query
         .where('username', username)
         .first()
 }
