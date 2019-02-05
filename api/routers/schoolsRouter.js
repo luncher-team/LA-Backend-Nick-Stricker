@@ -9,7 +9,7 @@ const ware = require('../middleware.js');
 
 router.route('/')
     .get(get)
-    .post(ware.authenticate, add)
+    .post(add)
     ;
 
 router.route('/:id')
