@@ -20,7 +20,7 @@ function get(id) {
 }
 
 function login(username) {
-    let query = db('users')
+    let query = db('users').select('username', 'id', 'password');
     return query
         .where('username', username)
         .first()
