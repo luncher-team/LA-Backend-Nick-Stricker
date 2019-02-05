@@ -20,10 +20,14 @@ function get(id) {
 }
 
 function add(school) {
-    school = { ...school, donated: 0, achieved: false }
+    school = { ...school, donated: 0, achieved: false };
     if (school.description === undefined) {
         school = { ...school, description: "" }
     }
+    if (school.admin_id === undefined) {
+        school = { ...school, admin_id: 1 }
+    }
+    console.log(school)
     return db('schools')
         .insert(school)
         .then(([id]) => ({ id }));
