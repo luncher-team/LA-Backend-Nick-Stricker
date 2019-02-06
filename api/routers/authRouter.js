@@ -19,19 +19,35 @@ function register(req, res) {
 
     userInfo.password = hash;
 
-    db.add(userInfo)
-        .then(([id]) => {
-            db.login(userInfo.username)
-                .then(user => {
-                    const token = ware.generateToken(user);
-                    res.status(201).json({
-                        username: user.username,
-                        token,
-                        id
+    db.get()
+        .then(schools => {
+            let found = true;
+            for (let i = 0; i < schools.length; i++) {
+                if (schools[i].username == userInfo.username) {
+                    found = false;
+                    break;
+                }
+            }
+            if (found) {
+                db.add(userInfo)
+                    .then(([id]) => {
+                        db.login(userInfo.username)
+                            .then(user => {
+                                const token = ware.generateToken(user);
+                                res.status(201).json({
+                                    username: user.username,
+                                    token,
+                                    id
+                                })
+                            })
                     })
-                })
+                    .catch(err => res.status(500).json(err));
+            } else {
+                res.status(404).json({ msg: 'Username must be unique' });
+            }
         })
-        .catch(err => res.status(500).json(err));
+
+
 }
 
 function login(req, res) {
@@ -51,20 +67,23 @@ function login(req, res) {
                 });
             } else {
                 res.status(401).json({
-                    you: 'shall not pass!!'
+                    msg: 'password or username are incorrect'
                 });
             }
         })
         .catch(err => res.status(500).json({
             err,
-            msg: 'no user'
+            msg: 'username or password are incorrect'
         }));
 }
 
 async function getUsers(req, res) {
     const id = req.params.id;
     const users = await db.get(id);
+
     res.status(200).json(
         users
     );
+
+
 };

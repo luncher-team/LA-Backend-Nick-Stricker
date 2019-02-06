@@ -4,7 +4,7 @@ const schoolDb = require('../../data/helpers/schoolModel.js');
 const server = require('../server.js');
 
 const ware = require('../middleware.js')
-const bcrypt = require('bcryptjs');
+
 
 afterEach(async () => {
     await db('schools').truncate()
@@ -35,17 +35,37 @@ describe('server.js', () => {
             let user = await request(server).get('/schools/:id')
             let token = await ware.generateToken(user);
 
-            let response = await request(server).post('/schools').send({ name: 'this is a name', address: 'platformer', requested_funds: 1999 }).set('Authentication', token);
+            let response = await request(server).post('/schools').send({ name: 'this is a name', address: 'platformer', requested_funds: 1999 }).set('Authorization', token);
 
             expect(response.status).toBe(201);
         })
 
         it('should insert provided school', async () => {
+            const { id } = await schoolDb.add({ name: 'this is a name', address: '123 road island', requested_funds: 2000 })
+            const school = await schoolDb.get(id)
 
+            let schools = await schoolDb.get();
+
+            expect(schools).toHaveLength(1);
+            expect(school.name).toEqual('this is a name');
+
+            await schoolDb.add({ name: 'this is a second name', address: '123 road island', requested_funds: 2000 });
+            schools = await schoolDb.get();
+
+            expect(schools).toHaveLength(2);
         })
 
         it('should have a unique name', async () => {
+            let user = await request(server).get('/schools/:id')
+            let token = await ware.generateToken(user);
 
+            await request(server).post('/schools')
+                .send({ name: 'this is a name', address: '123 road island', requested_funds: 2000 }).set('Authorization', token);
+            let response = await request(server).post('/schools')
+                .send({ name: 'this is a name', address: '123 road island', requested_funds: 2000 }).set('Authorization', token);
+
+            expect(response.status).toBe(405);
+            expect(response.body.msg).toBe('name must be unique');
         })
     })
 })
