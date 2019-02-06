@@ -50,6 +50,9 @@ function getId(req, res) {
                 res.status(404).json({ msg: 'school with id not found' });
             }
         })
+        .catch(err => {
+            res.status(400).json({ err, msg: "failed to get schools array" })
+        })
 
 
 }
@@ -63,6 +66,7 @@ function add(req, res) {
                     .then(school => {
                         res.status(201).json(school);
                     })
+                    .catch(err => res.status(401).json({ err, msg: 'cannot find school' }));
             }).catch(err => res.status(405).json({ msg: 'name must be unique', err }));
     } else {
         res.status(422).json('Must include name, address, and requested_funds');
@@ -90,6 +94,9 @@ function remove(req, res) {
             } else {
                 res.status(404).json({ msg: 'school with id not found' });
             }
+        })
+        .catch(err => {
+            res.status(400).json({ err, msg: "failed to get schools array" })
         })
 
 
@@ -121,6 +128,9 @@ function update(req, res) {
             } else {
                 res.status(404).json({ msg: 'school with id not found' });
             }
+        })
+        .catch(err => {
+            res.status(400).json({ err, msg: "failed to get schools array" })
         })
 
 
