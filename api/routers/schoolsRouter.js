@@ -55,13 +55,18 @@ function getId(req, res) {
 }
 
 function add(req, res) {
-    db.add(req.body)
-        .then(result => {
-            db.get(result.id)
-                .then(school => {
-                    res.status(201).json(school);
-                })
-        }).catch(err => res.status(500).json(err));
+    const info = req.body;
+    if (info.name && info.address && info.requested_funds) {
+        db.add(req.body)
+            .then(result => {
+                db.get(result.id)
+                    .then(school => {
+                        res.status(201).json(school);
+                    })
+            }).catch(err => res.status(405).json({ msg: 'name must be unique', err }));
+    } else {
+        res.status(422).json('Must include name, address, and funds');
+    }
 }
 
 function remove(req, res) {

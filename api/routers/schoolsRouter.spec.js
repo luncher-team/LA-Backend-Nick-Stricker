@@ -4,7 +4,7 @@ const schoolDb = require('../../data/helpers/schoolModel.js');
 const server = require('../server.js');
 
 const ware = require('../middleware.js')
-const bcrypt = require('bcryptjs');
+
 
 afterEach(async () => {
     await db('schools').truncate()
@@ -41,11 +41,28 @@ describe('server.js', () => {
         })
 
         it('should insert provided school', async () => {
+            const { id } = await schoolDb.add({ name: 'this is a name', address: '123 road island', requested_funds: 2000 })
+            const school = await schoolDb.get(id)
 
+            let schools = await schoolDb.get();
+
+            expect(schools).toHaveLength(1);
+            expect(school.name).toEqual('this is a name');
+
+            await schoolDb.add({ name: 'this is a second name', address: '123 road island', requested_funds: 2000 });
+            schools = await schoolDb.get();
+
+            expect(schools).toHaveLength(2);
         })
 
         it('should have a unique name', async () => {
+            await request(server).post('/schools')
+                .send({ name: 'this is a name', address: '123 road island', requested_funds: 2000 });
+            let response = await request(server).post('/schools')
+                .send({ name: 'this is a name', address: '123 road island', requested_funds: 2000 });
 
+            expect(response.status).toBe(405);
+            expect(response.body.msg).toBe('name must be unique');
         })
     })
 })
