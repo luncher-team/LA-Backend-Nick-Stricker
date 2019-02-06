@@ -39,12 +39,15 @@ function register(req, res) {
                                     token,
                                     id
                                 })
-                            })
+                            }).catch(err => res.status(401).json({ err, msg: 'failed to login, make sure username exists' }))
                     })
                     .catch(err => res.status(500).json(err));
             } else {
                 res.status(404).json({ msg: 'Username must be unique' });
             }
+        })
+        .catch(err => {
+            res.status(400).json({ err, msg: "failed to get schools array" })
         })
 
 
@@ -80,10 +83,14 @@ function login(req, res) {
 async function getUsers(req, res) {
     const id = req.params.id;
     const users = await db.get(id);
+    try {
+        res.status(200).json(
+            users
+        );
+    } catch (err) {
+        res.status(400).json()
+    }
 
-    res.status(200).json(
-        users
-    );
 
 
 };
