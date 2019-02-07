@@ -43,7 +43,7 @@ function register(req, res) {
                     })
                     .catch(err => res.status(500).json(err));
             } else {
-                res.status(404).json({ msg: 'Username must be unique' });
+                res.status(405).json({ msg: 'Username already exists' });
             }
         })
         .catch(err => {
@@ -58,7 +58,6 @@ function login(req, res) {
 
     db.login(creds.username.toString())
         .then(user => {
-            console.log(user)
             if (user && bcrypt.compareSync(creds.password, user.password)) {
 
                 const token = ware.generateToken(user);
@@ -68,11 +67,12 @@ function login(req, res) {
                     token,
                     id: user.id
                 });
-            } else {
-                res.status(401).json({
-                    msg: 'password or username are incorrect'
-                });
             }
+            // else {
+            //     res.status(500).json({
+            //         msg: 'password or username are incorrect'
+            //     });
+            // }
         })
         .catch(err => res.status(500).json({
             err,
