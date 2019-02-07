@@ -142,17 +142,6 @@ describe('server.js', () => {
                 "donated": 0
             });
         })
-
-        // it('should have a unique name', async () => {
-
-        //     let login = await request(server).post('/api/login').send({
-        //         "username": "Regi",
-        //         "password": "goodboi"
-        //     });
-
-        //     expect(login.status).toBe(500);
-        //     expect(login.body.msg).toBe('username or password are incorrect');
-        // })
     })
 
 });

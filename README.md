@@ -30,10 +30,14 @@
 
 - [ ] School API has the following endpoints:
 
-    - [ ] GET to '/schools' for retrieving an array of schools
-    - [ ] restricted POST to '/schools' for adding schools.
-    - [ ] restricted PUT to '/schools/:id' by school `id` for updating schools.
-    - [ ] restricted DELETE to '/schools/:id' by school `id` for deleteing schools.
+    - [ ] GET to '/schools' for retrieving an array of `schools`
+    - [ ] restricted POST to '/schools' for adding a `school` ; 
+            requires {name, address, requested_funds} ; 
+            returns the posted object
+    - [ ] restricted PUT to '/schools/:id' by school `id` for updating a `school` ;  
+            requires object with changed properties ; 
+            returns the updated object
+    - [ ] restricted DELETE to '/schools/:id' by school `id` for deleteing a `school` that returns: 
 
         ```js
         {
@@ -66,8 +70,10 @@
 
 - [ ] Users API has the following endpoints:
 
-    - [ ] GET to '/api/users' for retrieving an array of schools
-    - [ ] POST to '/api/register' for adding users that returns an object with the following structure:
+    - [ ] GET to '/api/users' for retrieving an array of `users`
+    - [ ] POST to '/api/register' for adding a `user` ; 
+            requires { username, password, email } ; 
+            returns an object with the following structure:
 
         ```js
         {
@@ -77,7 +83,9 @@
         }
         ```
 
-    - [ ] POST to '/api/login' by school `id` for updating schools that returns an object with the following structure:
+    - [ ] POST to '/api/login' by school `id` for adding a `user` ;  
+            requires { username, password } ; 
+            returns an object with the following structure:
 
         ```js
         {

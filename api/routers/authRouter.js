@@ -68,11 +68,6 @@ function login(req, res) {
                     id: user.id
                 });
             }
-            // else {
-            //     res.status(500).json({
-            //         msg: 'password or username are incorrect'
-            //     });
-            // }
         })
         .catch(err => res.status(500).json({
             err,
