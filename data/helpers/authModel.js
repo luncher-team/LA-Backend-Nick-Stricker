@@ -38,7 +38,7 @@ function add(user) {
     if (user.user_type === undefined) {
         user = { ...user, user_type: "patron" }
     }
-    console.log(user)
+
     return db('users')
         .insert(user);
 

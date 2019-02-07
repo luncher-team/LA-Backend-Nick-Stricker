@@ -10,6 +10,10 @@
     - [x] a admin_id that refrences an id on users table.
     - [x] a donated integer, amount donated to school.
     - [x] a flag that indicates if the funds are complete or not.
+    - [x] a city.
+    - [x] a state.
+    - [x] a lat, lattitude on map
+    - [x] a lon, longitude on map
     - [x] a timestamps
 
 -  A `user` has:
@@ -30,6 +34,13 @@
     - [ ] restricted POST to '/schools' for adding schools.
     - [ ] restricted PUT to '/schools/:id' by school `id` for updating schools.
     - [ ] restricted DELETE to '/schools/:id' by school `id` for deleteing schools.
+
+        ```js
+        {
+            deleted: true
+        }
+        ```
+
     - [ ] GET toto '/schools/:id' for retrieving a `school` by its `id` that returns an object with the following structure:
 
         ```js
@@ -45,6 +56,8 @@
             achieved: false,
             city: "town",
             state: "US",
+            lat: 0.0,
+            lon: 0.0,
             created_at: "",
             updated_at: ""
         }
@@ -54,8 +67,26 @@
 - [ ] Users API has the following endpoints:
 
     - [ ] GET to '/api/users' for retrieving an array of schools
-    - [ ] POST to '/api/register' for adding users.
-    - [ ] POST to '/api/login' by school `id` for updating schools.
+    - [ ] POST to '/api/register' for adding users that returns an object with the following structure:
+
+        ```js
+        {
+            username: "",
+            token: "",
+            id: 0
+        }
+        ```
+
+    - [ ] POST to '/api/login' by school `id` for updating schools that returns an object with the following structure:
+
+        ```js
+        {
+            username: "",
+            token: "",
+            id: 0
+        }
+        ```
+
     - [ ] GET for retrieving a `user` by its `id` that returns an object with the following structure:
 
         ```js
