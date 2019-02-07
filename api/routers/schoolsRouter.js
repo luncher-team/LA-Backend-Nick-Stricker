@@ -119,7 +119,7 @@ function update(req, res) {
                 if (changes) {
                     db.update(id, changes)
                         .then(result => {
-                            res.status(200).json(result);
+                            res.status(203).json(result);
                         })
                         .catch(err => res.status(500).json({ msg: 'could not update', err }))
                 } else {

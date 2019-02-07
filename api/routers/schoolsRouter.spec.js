@@ -68,4 +68,32 @@ describe('server.js', () => {
             expect(response.body.msg).toBe('name must be unique');
         })
     })
+
+    describe('Put /schools/:id endpoint', () => {
+        it('should return status code 201', async () => {
+            let user = await request(server).get('/schools/:id')
+            console.log(user)
+            let token = await ware.generateToken(user);
+
+            await request(server).post('/schools').send({ name: 'this is a new name', address: 'platformer', requested_funds: 1999 }).set('Authorization', token);
+            let response = await request(server).put('/schools/1').send({ name: 'this is a new name' }).set('Authorization', token);
+            expect(response.status).toBe(203);
+        })
+
+        it('should insert provided school', async () => {
+            const { id } = await schoolDb.add({ name: 'this is a name', address: '123 road island', requested_funds: 2000 })
+            await schoolDb.update(id, { name: 'this is an updated name' })
+
+            let school = await schoolDb.get(id)
+
+            expect(school.name).toEqual('this is an updated name');
+
+            const two = await schoolDb.add({ name: 'this is a second name', address: '123 road island', requested_funds: 2000 });
+            await schoolDb.update(two.id, { name: 'this is another updated name' })
+            school = await schoolDb.get(two.id);
+
+            expect(school.name).toEqual('this is another updated name');
+        })
+    })
+
 })
