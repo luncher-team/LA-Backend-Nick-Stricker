@@ -27,6 +27,18 @@ function add(school) {
     if (school.admin_id === undefined) {
         school = { ...school, admin_id: 1 }
     }
+    if (school.city === undefined) {
+        school = { ...school, city: "city" }
+    }
+    if (school.state === undefined) {
+        school = { ...school, state: "state" }
+    }
+    if (school.lat === undefined) {
+        school = { ...school, lat: 0.0 }
+    }
+    if (school.lon === undefined) {
+        school = { ...school, lon: 0.0 }
+    }
     console.log(school)
     return db('schools')
         .insert(school)

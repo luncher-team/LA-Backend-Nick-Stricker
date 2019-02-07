@@ -35,7 +35,7 @@ describe('server.js', () => {
             let user = await request(server).get('/schools/:id')
             let token = await ware.generateToken(user);
 
-            let response = await request(server).post('/schools').send({ name: 'this is a name', address: 'platformer', requested_funds: 1999 }).set('Authorization', token);
+            let response = await request(server).post('/schools').send({ name: 'this is a new name', address: 'platformer', requested_funds: 1999 }).set('Authorization', token);
 
             expect(response.status).toBe(201);
         })

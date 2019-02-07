@@ -15,6 +15,10 @@ exports.seed = function (knex, Promise) {
           "donated": 2562.10,
           "achieved": false,
           "admin_id": 1,
+          "city": "city",
+          "state": "state",
+          "lat": 0.0,
+          "lon": 0.0,
         },
         {
           "id": 2,
@@ -25,6 +29,10 @@ exports.seed = function (knex, Promise) {
           "donated": 2590.54,
           "achieved": false,
           "admin_id": 2,
+          "city": "city",
+          "state": "state",
+          "lat": 0.0,
+          "lon": 0.0,
         },
         {
           "id": 3,
@@ -35,6 +43,10 @@ exports.seed = function (knex, Promise) {
           "donated": 2590.54,
           "achieved": false,
           "admin_id": 2,
+          "city": "city",
+          "state": "state",
+          "lat": 0.0,
+          "lon": 0.0,
         },
 
       ]);

@@ -2,24 +2,25 @@
 ## object descriptions
 
 - A `school` has:
-  - [x] a unique Id.
-  - [x] a unique name.
-  - [x] a description.
-  - [x] a address.
-  - [x] a requested_funds
-  - [x] a admin_id that refrences an id on users table.
-  - [x] a donated integer, amount donated to school.
-  - [x] a flag that indicates if the funds are complete or not.
-  - [x] a timestamps
+    - [x] a unique Id.
+    - [x] a unique name.
+    - [x] a description.
+    - [x] a address.
+    - [x] a requested_funds
+    - [x] a admin_id that refrences an id on users table.
+    - [x] a donated integer, amount donated to school.
+    - [x] a flag that indicates if the funds are complete or not.
+    - [x] a timestamps
+
 -  A `user` has:
-  - [ ] a unique id.
-  - [ ] a unique username.
-  - [ ] a password.
-  - [ ] a last_name.
-  - [ ] a first_name.
-  - [ ] a email.
-  - [ ] a user_type.
-  - [ ] a donated integer amount user has donated.
+    - [x] a unique id.
+    - [x] a unique username.
+    - [x] a password.
+    - [x] a last_name.
+    - [x] a first_name.
+    - [x] a email.
+    - [x] a user_type.
+    - [x] a donated integer amount user has donated.
 
 ### Enpoints
 
@@ -52,10 +53,9 @@
 
 - [ ] Users API has the following endpoints:
 
-    - '/api'
-    - [ ] GET to '/users' for retrieving an array of schools
-    - [ ] POST to '/register' for adding users.
-    - [ ] POST to '/login' by school `id` for updating schools.
+    - [ ] GET to '/api/users' for retrieving an array of schools
+    - [ ] POST to '/api/register' for adding users.
+    - [ ] POST to '/api/login' by school `id` for updating schools.
     - [ ] GET for retrieving a `user` by its `id` that returns an object with the following structure:
 
         ```js
