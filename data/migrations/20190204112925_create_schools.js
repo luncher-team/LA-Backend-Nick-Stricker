@@ -10,6 +10,10 @@ exports.up = function (knex, Promise) {
         tbl.integer('admin_id').references('id').inTable('users');
         tbl.float('donated');
         tbl.boolean('achieved');
+        tbl.string('city', 128);
+        tbl.string('state', 128);
+        tbl.float('lat');
+        tbl.float('lon');
         tbl.timestamps(true, true);
     });
 };
